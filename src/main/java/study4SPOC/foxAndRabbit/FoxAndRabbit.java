@@ -1,13 +1,5 @@
 package study4SPOC.foxAndRabbit;
 
-import study4SPOC.foxAndRabbit.*;
-import study4SPOC.foxAndRabbit.Animal;
-import study4SPOC.foxAndRabbit.Fox;
-import study4SPOC.foxAndRabbit.ICell;
-import study4SPOC.foxAndRabbit.Location;
-import study4SPOC.foxAndRabbit.Rabbit;
-import study4SPOC.foxAndRabbit.View;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

@@ -1,8 +1,5 @@
 package study4SPOC.foxAndRabbit;
 
-import study4SPOC.foxAndRabbit.ICell;
-import study4SPOC.foxAndRabbit.Location;
-
 import java.util.ArrayList;
 import java.util.List;
 

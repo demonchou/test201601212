@@ -1,8 +1,5 @@
 package study4SPOC.foxAndRabbit;
 
-import study4SPOC.foxAndRabbit.Animal;
-import study4SPOC.foxAndRabbit.ICell;
-
 import java.awt.*;
 import java.util.ArrayList;
 
