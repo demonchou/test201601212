@@ -1,7 +1,5 @@
 package filter;
 
-import filter.*;
-
 public class SensitiveFilter implements Filter
 {
 	public String doFilter(String msg)

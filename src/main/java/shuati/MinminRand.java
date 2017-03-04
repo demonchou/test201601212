@@ -1,18 +1,14 @@
 package shuati;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-
-import excise.Buffer;
-
 /**
  * @Description  
- * @author hzzhouhongfei 
+ * @author hzzhouhongfei
+ *
  * 2016年8月11日下午9:56:18
  */
 public class MinminRand

@@ -1,8 +1,5 @@
 package product_sign;
 
-import product_sign.RSAEncrypt;
-import product_sign.RSASignature;
-
 public class MainTest {
   
     public static void main(String[] args) throws Exception {  
@@ -38,11 +35,11 @@ public class MainTest {
 //        System.out.println();  
           
         System.out.println("---------------私钥签名过程------------------");  
-        String content="ihep_这是用于签名的原始数据";  
+        String content="ihep_这是用于签名的原始数据";
         String signstr= RSASignature.sign(content, RSAEncrypt.loadPrivateKeyByFile(filepath));
         System.out.println("签名原串："+content);  
         System.out.println("签名串："+signstr);  
-        System.out.println();  
+        System.out.println();
           
 //        System.out.println("---------------公钥校验签名------------------");  
 //        System.out.println("签名原串："+content);  
