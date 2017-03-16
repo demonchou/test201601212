@@ -1,7 +1,7 @@
 package com.demonchou.common.persistence.dialect;
 
 /**
- * Description:
+ * Description:数据库方言。
  * Created by zhouhongfei on 2017/3/4 20:43.
  * E-mail:zhouhfsix@foxmail.com
  */
