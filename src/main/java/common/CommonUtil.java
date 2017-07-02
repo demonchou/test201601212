@@ -11,9 +11,61 @@ import java.text.NumberFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 
 public class CommonUtil
 {
+	/**
+	 * 为敏感字符串加上星号
+	 *
+	 * @param plainStr
+	 * @param headLength
+	 *            头几位显示
+	 * @param tailLength
+	 *            末几位显示
+	 * @param starLength
+	 *            星号的数量
+	 * @return
+	 */
+	public static String getSecretNumberWithStart(String plainStr, int headLength, int tailLength, int starLength)
+	{
+		if (StringUtils.isBlank(plainStr))
+		{
+			return "";
+		}
+		StringBuilder starString = new StringBuilder("");
+		for (int i = 1; i <= starLength; i++)
+		{
+			starString.append("*");
+		}
+		if (null == plainStr || "".equals(plainStr))
+		{
+			return "";
+		}
+		else if (plainStr.length() <= tailLength)
+		{
+			return plainStr;
+		}
+		else
+		{
+			return plainStr.substring(0, headLength) + starString
+					+ plainStr.substring(plainStr.length() - tailLength, plainStr.length());
+		}
+	}
+	public static String maskAcountIdForMessage(String accountId)
+	{
+		String userName = accountId.indexOf("@") > 0 ? accountId.substring(0, accountId.indexOf("@")) : accountId;
+		String maskString = "";
+		if (StringUtils.isNotBlank(userName) && userName.length() > 2)
+		{
+			maskString = getSecretNumberWithStart(userName, 2, 0, 1);
+		}
+		else
+		{
+			maskString = getSecretNumberWithStart(userName, 1, 0, 1);
+		}
+		return maskString;
+	}
 
 	private static final char[] bcdLookup =
 	{ '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
