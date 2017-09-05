@@ -26,13 +26,13 @@ public class SubStringtest
         String amountB = "0.901";
         String plainString = "127,312,123,123,12,21312,123,123";
 
-        String accountId = "zhouhongfei@wyb.163.com";
+        String accountId = "zh@";
         String accountId2 = "周洪飞";
         String account = "1";
-        String phone = "18795958220";
+        String phone = "1879595822012";
         String aa = null;
         int i = Integer.valueOf(account)+1;
-        String sub = accountId.substring(0,accountId.length()-12);
+//        String sub = accountId.substring(0,accountId.length()-12);
         int a = accountId.indexOf("@");
         String sub2 = accountId.substring(a);
         String sub3 = accountId2.substring(1);
@@ -45,7 +45,7 @@ public class SubStringtest
         Set<String> set = new HashSet<>();
         set.addAll(plainList);
         List<String> list = new ArrayList<>(set);
-        System.out.println(sub);
+//        System.out.println(sub);
         System.out.println(a);
         System.out.println(sub2);
         System.out.println("*" + sub3);

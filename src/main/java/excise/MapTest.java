@@ -19,11 +19,17 @@ public class MapTest
 	public static void main(String[] args)
 	{
 		Map<String, String > map = new HashMap<>();
+		Map<String, String> map1 = new HashMap<>();
 		map.put("1", "Hello");
 		map.put("2", "Jack");
 		map.put("3", "and");
 		map.put("4", "Tom");
 		map.put("5", null);
+
+		for (String key : map1.keySet())
+		{
+			System.out.println("map1的Key：" + key);
+		}
 		for (Map.Entry<String, String > entry : map.entrySet())
 		{
 			if(entry.getValue() == null)

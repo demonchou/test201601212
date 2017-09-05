@@ -2,8 +2,11 @@ package excise;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -21,7 +24,7 @@ public class DateTest
 	public static void main(String[] args)
 	{
 		Date currentTime = new Date();
-		List<Dog> dogList1 = new ArrayList<>();
+		List<Dog> dogList1 = null;
 		List<Dog> dogList2 = new ArrayList<>();
 		Name name1 = new Name("jack", "tom1");
 		Name name2 = new Name("jack", "chen2");
@@ -29,8 +32,8 @@ public class DateTest
 		Dog dog1 = new Dog(name1);
 		Dog dog2 = new Dog(name2);
 		Dog dog3 = new Dog(name3);
-		dogList1.add(dog2);
-		dogList1.add(dog1);
+//		dogList1.add(dog2);
+//		dogList1.add(dog1);
 		dogList2.add(dog1);
 		dogList2.add(dog2);
 		dogList2.add(dog3);
@@ -45,11 +48,20 @@ public class DateTest
 		{
 			System.out.println("weatherInfo is null");
 		}
+		else
+		{
+			System.out.println("weatherInfo is not null");
+		}
 
 		if (CollectionUtils.isEmpty(dogList1))
 		{
 			System.out.println("dogList is empty");
 		}
+
+//		for (Dog dog : dogList1)
+//		{
+//			Name name = dog.getName();
+//		}
 
 		if (null != weatherInfos)
 		{
@@ -65,6 +77,11 @@ public class DateTest
 		{
 			System.out.println("weatherInfos is empty");
 		}
+		Set<String> mails = new HashSet<String>();
+		StringBuffer stringBuffer = new StringBuffer();
+		String[] mailArray = stringBuffer.toString().split(",");
+		mails.addAll(Arrays.asList(mailArray));
+		System.out.println(mails);
 
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String dateString = formatter.format(currentTime);
