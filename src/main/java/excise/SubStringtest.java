@@ -21,12 +21,12 @@ public class SubStringtest
 {
     public static void main(String[] args)
     {
-        String aString = "";
+        String aString = "1234567879963677";
         String amountA = "9.001";
         String amountB = "0.901";
         String plainString = "127,312,123,123,12,21312,123,123";
 
-        String accountId = "zh@";
+        String accountId = "zh@163.com";
         String accountId2 = "周洪飞";
         String account = "1";
         String phone = "1879595822012";
@@ -61,6 +61,7 @@ public class SubStringtest
         System.out.println(balance);
         System.out.println(null == aa);
         System.out.println(list.toString() + "size: " + list.size() + list.getClass());
+        System.out.println(aString.substring(aString.length()-8));
 
     }
 }
