@@ -1,6 +1,7 @@
 package excise;
 
 import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -40,22 +41,24 @@ public class NumberTest
 
 		String mail = "2@126.com";
 
-		System.out.println(checkEmail(mail));
-		System.out.println(RandomStringUtils.random(3));
+//		System.out.println(checkEmail(mail));
+//		System.out.println(RandomStringUtils.random(3));
 
 
 
-//		for (int i = 0 ; i < 1000 ;i++)
-//		{
-//			String sequenceNum3 = String.valueOf((int)(Math.random()*900)+100);
-//			if (sequenceNum3.equals(999))
-//			{
-//				System.out.println(sequenceNum3);
-//				System.out.println("orz-000");
-//				System.out.println(i);
-//				break;
-//			}
-//		}
+		for (int i = 0 ; i < 1000 ;i++)
+		{
+			String sequenceNum3 = String.valueOf((int) (Math.random() * 999));
+			String seq = new DecimalFormat("000").format((int) (Math.random() * 999) + 1);
+			if (sequenceNum3.equals(999))
+			{
+				System.out.println(sequenceNum3);
+				System.out.println("orz-000");
+				System.out.println(i);
+				break;
+			}
+			System.out.println(seq);
+		}
 	}
 
 	public static boolean checkEmail(String email) {
