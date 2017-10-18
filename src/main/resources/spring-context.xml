@@ -18,7 +18,7 @@
 
     <!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
     <context:component-scan base-package="com.demonchou"><!-- base-package 如果多个，用“,”分隔 -->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
 
@@ -90,6 +90,13 @@
 
         <!-- 配置监控统计拦截的filters -->
         <property name="filters" value="stat" />
+    </bean>
+
+    <!--freemarker解析配置-->
+    <bean id="freeMarkerConfiguration"   class="org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean">
+        <property name="templateLoaderPath"   value="/WEB-INF/ftl/template" />
+        <!-- 设置freeMarker的配置文件路径 -->
+        <property name="configLocation" value="classpath:freemarker.properties" />
     </bean>
 
     <!-- 数据源配置, 使用应用服务器的数据库连接池
