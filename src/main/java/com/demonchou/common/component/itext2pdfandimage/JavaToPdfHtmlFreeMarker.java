@@ -35,43 +35,6 @@ public class JavaToPdfHtmlFreeMarker
 		render.createPDF(new FileOutputStream(DEST));
 		render.createPDF(outStream);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//		//推荐的方法打开PdfDecoder
-//		PdfDecoder pdfDecoder = new PdfDecoder(true);
-//		FontMappings.setFontReplacements();
-//		//修改图片的清晰度
-//		pdfDecoder.scaling = scaling;
-//		ByteArrayOutputStream out = new ByteArrayOutputStream();
-//		try {
-//			//打开pdf文件，生成PdfDecoder对象
-//			pdfDecoder.openPdfArray(bytes); //bytes is byte[] array with PDF
-//			//获取第pageNum页的pdf
-//			BufferedImage img = pdfDecoder.getPageAsImage(pageNum);
-//
-//			ImageIO.write(img, formatName, out);
-//		} catch (PdfException e) {
-//			e.printStackTrace();
-//		} catch (IOException e){
-//			e.printStackTrace();
-//		}
-
-
-
-
 	}
 
 

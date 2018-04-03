@@ -3,9 +3,12 @@ package excise;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @Description  
@@ -40,6 +43,21 @@ public class CollectionTest
 		System.out.println("date2: " + date2);
 		System.out.println("更新时间是否相等： " + DateUtils.isSameInstant(date, date2));
 		System.out.println("更新时间是否同一天： " + DateUtils.isSameDay(date, date2));
+
+		Set<String> set1 = new TreeSet<>(Arrays.asList("001","002","004","003"));
+		Set<String> set2 = new TreeSet<>(Arrays.asList("001","002","009","008"));
+		Set<String> resultSet = new TreeSet<>();
+		resultSet.addAll(set1);
+		resultSet.retainAll(set2);
+		System.out.println("交集：" + resultSet);
+		resultSet.clear();
+		resultSet.addAll(set1);
+		resultSet.addAll(set2);
+		System.out.println("并集：" + resultSet);
+		resultSet.clear();
+		resultSet.addAll(set1);
+		resultSet.removeAll(set2);
+		System.out.println("差集：" + resultSet);
 	}
 
 	/**
