@@ -46,8 +46,7 @@ public class CollectionTest
 
 		Set<String> set1 = new TreeSet<>(Arrays.asList("001","002","004","003"));
 		Set<String> set2 = new TreeSet<>(Arrays.asList("001","002","009","008"));
-		Set<String> resultSet = new TreeSet<>();
-		resultSet.addAll(set1);
+		Set<String> resultSet = new TreeSet<>(set1);
 		resultSet.retainAll(set2);
 		System.out.println("交集：" + resultSet);
 		resultSet.clear();
