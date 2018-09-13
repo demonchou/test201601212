@@ -93,24 +93,16 @@ public class AssambleCertsAction
 
 		System.out.println("platformMsgMap.entries()===>" + JSONObject.toJSONString(platformMsgMap.entries()));
 
-		System.out.println("========");
-
 		String companyNameCertsMapStr = JSONObject.toJSONString(companyNameCertsMap);
 		System.err.println("放在diamond上的数据：companyNameCertsMapStr===>" + companyNameCertsMapStr);
 
-		System.out.println("========");
-
 		String newCompanyNamePlatformIdsMapStr = JSONObject.toJSONString(newCompanyNamePlatformIdsMap);
 		System.err.println("放在diamond上的数据，需要新增公司的商户：newCompanyNamePlatformIdsMapStr===>" + newCompanyNamePlatformIdsMapStr);
-
-		System.out.println("========");
 
 		Map companyNameCertsMapDb = JSONObject.parseObject(companyNameCertsMapStr, Map.class);
 
 		List<PlatformCert> platformCerts = JSONObject
 				.parseArray((String) companyNameCertsMapDb.get("广州博冠信息科技有限公司"), PlatformCert.class);
-
-		System.out.println("========");
 
 		System.out.println("广州博冠信息科技有限公司===>" + JSONObject.toJSONString(platformCerts));
 	}
