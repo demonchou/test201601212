@@ -43,7 +43,11 @@ public class AssambleCertsAction
 		Map<String, String> companyNameCertsMap = new HashMap<>(16);
 		Map<String, String> newCompanyNamePlatformIdsMap = new HashMap<>(16);
 
-		newCompanyNamePlatformIdsMap.put("测试新增公司","2016061616PT00444056,2016061319PT00443176");
+		newCompanyNamePlatformIdsMap.put("杭州悦动信息科技有限公司","2014021118PT40432714");
+		newCompanyNamePlatformIdsMap.put("华安财产保险股份有限公司","2015122817PT60791069");
+		newCompanyNamePlatformIdsMap.put("前海人寿保险股份有限公司","2015112311PT64229280");
+		newCompanyNamePlatformIdsMap.put("阳光人寿保险股份有限公司北京分公司", "2012081317PT83847987,2012081317PT83866399,2014103113PT59648372");
+		newCompanyNamePlatformIdsMap.put("中国平安财产保险股份有限公司","2014041015PT53986694,2014072311PT01146728");
 
 
 		try
