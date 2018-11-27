@@ -60,9 +60,15 @@ public class AssambleCertsAction
 				String certType = StringUtils.trimToEmpty(certDetail[1]);
 				String certNo = StringUtils.trimToEmpty(certDetail[2]);
 				String certName = StringUtils.trimToEmpty(certDetail[3]);
-				String validDate = StringUtils.trimToEmpty(certDetail[4]);
-				String certImgFrontUrl = StringUtils.trimToEmpty(certDetail[5]);
-				String certImgBackUrl = StringUtils.trimToEmpty(certDetail[6]);
+				String validDate = StringUtils.EMPTY;
+				String certImgFrontUrl = StringUtils.EMPTY;
+				String certImgBackUrl = StringUtils.EMPTY;
+				if (certDetail.length >= 4)
+				{
+					validDate = StringUtils.trimToEmpty(certDetail[4]);
+					certImgFrontUrl = StringUtils.trimToEmpty(certDetail[5]);
+					certImgBackUrl = StringUtils.trimToEmpty(certDetail[6]);
+				}
 
 				PlatformCert platformCert = new PlatformCert();
 				platformCert.setCertType(certType);
