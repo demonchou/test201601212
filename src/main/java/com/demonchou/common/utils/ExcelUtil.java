@@ -169,8 +169,21 @@ public class ExcelUtil
 	 */
 	public int getColumnNum(int sheetIndex)
 	{
+		return getColumnNum(sheetIndex, 0);
+	}
+
+	/**
+	 * 返回数据的列数
+	 * @return
+	 */
+	public int getColumnNum(int sheetIndex,int rowNum)
+	{
+		if (rowNum < 0)
+		{
+			rowNum = 0;
+		}
 		Sheet sheet = wb.getSheetAt(sheetIndex);
-		Row row = sheet.getRow(0);
+		Row row = sheet.getRow(rowNum);
 		if (row != null && row.getLastCellNum() > 0)
 		{
 			return row.getLastCellNum();

@@ -28,14 +28,16 @@ public class AssambleCertsAction
 		ExcelUtil excelUtil = null;
 		try
 		{
-			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/platformCerts.xlsx"));
+//			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/platformCerts.xlsx"));
+			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		int totalRowNum = excelUtil.getRowNumExcludeBlankRow(0) - 1;
+		int totalRowNum = excelUtil.getRowNumExcludeBlankRow(0) - 2;
 		int totalLogicRowNum = excelUtil.getRowNum(0);
+		int totalColNum = excelUtil.getColumnNum(0, 4);
 		String[] certDetail = null;
 
 		Multimap<String, PlatformCert> platformMsgMap = HashMultimap.create();
@@ -54,7 +56,7 @@ public class AssambleCertsAction
 		{
 			for (int i = 1; i <= totalRowNum; i++)
 			{
-				certDetail = excelUtil.getRowData(0, i);
+				certDetail = excelUtil.getRowData(0, i + 1);
 
 				String companyName = StringUtils.trimToEmpty(certDetail[0]);
 				String certType = StringUtils.trimToEmpty(certDetail[1]);

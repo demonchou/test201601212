@@ -40,7 +40,7 @@
         <kafka-clients-version>0.9.0.1</kafka-clients-version>
         <guava.version>17.0</guava.version>
         <dozer.version>5.5.1</dozer.version>
-        <poi.version>3.15</poi.version>
+        <poi.version>3.14</poi.version>
         <freemarker.version>2.3.20</freemarker.version>
         <retrofit.version>2.1.0</retrofit.version>
 
@@ -85,6 +85,30 @@
 
     <!-- 依赖项定义 -->
     <dependencies>
+
+        <!--sm2 sign begin-->
+        <dependency>
+            <groupId>cn.com.cfca</groupId>
+            <artifactId>logback-cfca-jdk1.6</artifactId>
+            <version>4.0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.cfca</groupId>
+            <artifactId>sadk</artifactId>
+            <version>3.5.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.com.cfca</groupId>
+            <artifactId>svs-api-jdk1.6</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!--sm2 sign end-->
+
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>1.3.2</version>
+        </dependency>
 
         <!-- Spring begin-->
         <dependency>
