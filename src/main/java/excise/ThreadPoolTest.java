@@ -16,7 +16,7 @@ public class ThreadPoolTest
         //创建等待队列
         BlockingQueue<Runnable> bqueue = new ArrayBlockingQueue<Runnable>(20);
         //创建线程池，池中保存的线程数为3，允许的最大线程数为5
-        ThreadPoolExecutor pool = new ThreadPoolExecutor(3,5,50, TimeUnit.MILLISECONDS,bqueue);
+        ThreadPoolExecutor pool = new ThreadPoolExecutor(3, 5, 50, TimeUnit.MILLISECONDS, bqueue);
         //创建七个任务
         Runnable t1 = new MyThread();
         Runnable t2 = new MyThread();
