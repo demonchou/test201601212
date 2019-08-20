@@ -42,7 +42,7 @@ public class Sm4Util
 	/**
 	 * 128-32位16进制；256-64位16进制
 	 */
-	public static final int DEFAULT_KEY_SIZE = 256;
+	public static final int DEFAULT_KEY_SIZE = 128;
 
 	public static void main(String[] args)
 	{
