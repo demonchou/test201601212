@@ -613,6 +613,12 @@
             <groupId>org.xhtmlrenderer</groupId>
             <artifactId>flying-saucer-pdf</artifactId>
             <version>9.1.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>bcprov-jdk14</artifactId>
+                    <groupId>org.bouncycastle</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.xhtmlrenderer</groupId>
@@ -640,6 +646,18 @@
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>converter-gson</artifactId>
             <version>${retrofit.version}</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.bouncycastle</groupId>-->
+<!--            <artifactId>bcprov-jdk16</artifactId>-->
+<!--            <version>1.46</version>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.57</version>
         </dependency>
 
     </dependencies>

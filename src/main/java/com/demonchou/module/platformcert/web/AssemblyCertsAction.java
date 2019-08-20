@@ -19,17 +19,17 @@ import utils.DateUtil;
 /**
  *
  * @author hzzhouhongfei
- * @version $$ AssambleCertsAction, 2018/9/11 20:55 hzzhouhongfei $$
+ * @version $$ AssemblyCertsAction, 2018/9/11 20:55 hzzhouhongfei $$
  */
-public class AssambleCertsAction
+public class AssemblyCertsAction
 {
 	public static void main(String[] args)
 	{
 		ExcelUtil excelUtil = null;
 		try
 		{
-//			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/platformCerts.xlsx"));
-			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
+			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/线下批量数据处理.xlsx"));
+//			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
 		}
 		catch (Exception e)
 		{
