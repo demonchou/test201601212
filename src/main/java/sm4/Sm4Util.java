@@ -91,8 +91,7 @@ public class Sm4Util
 	 * 自动生成密钥
 	 * @explain
 	 * @return
-	 * @throws NoSuchAlgorithmException
-	 * @throws NoSuchProviderException
+	 * @throws Exception
 	 */
 	public static byte[] generateKey() throws Exception
 	{
