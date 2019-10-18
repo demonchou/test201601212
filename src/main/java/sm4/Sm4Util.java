@@ -48,7 +48,7 @@ public class Sm4Util
 	{
 		try
 		{
-			String json = "{\"name\":\"Marydon\",\"website\":\"http://www.cnblogs.com/Marydon20170307\"}";
+			String json = "12345678942234567894323456789442345678945234567894623456789472345678948234567894";
 			// 自定义的32位16进制密钥
 			String key = "86C63180C2806ED1F47B859DE501215B";
 			String cipher = Sm4Util.encryptEcb(key, json);
@@ -61,6 +61,9 @@ public class Sm4Util
 			System.out.println(Sm4Util.verifyEcb(key, cipher, json));
 			json = Sm4Util.decryptEcb(key, cipher);
 			System.out.println(json);
+
+			System.out.println(ByteUtils.toHexString(generateKey()));
+
 		}
 		catch (Exception e)
 		{
