@@ -1,6 +1,7 @@
 package com.demonchou.module.platformcert.web;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -29,32 +30,39 @@ public class AssemblyCertsAction
 		try
 		{
 			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/线下批量数据处理.xlsx"));
-//			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
+			//			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		int totalRowNum = excelUtil.getRowNumExcludeBlankRow(0) - 2;
+		int totalRowNum = excelUtil.getRowNumExcludeBlankRow(0) - 1;
 		int totalLogicRowNum = excelUtil.getRowNum(0);
 		int totalColNum = excelUtil.getColumnNum(0, 4);
 		String[] certDetail = null;
 
 		Multimap<String, PlatformCert> platformMsgMap = HashMultimap.create();
+		List<PlatformCert> platformCerts = new ArrayList<>();
 
 		Map<String, String> companyNameCertsMap = new HashMap<>(16);
 		Map<String, String> newCompanyNamePlatformIdsMap = new HashMap<>(16);
 
-		newCompanyNamePlatformIdsMap.put("杭州悦动信息科技有限公司","2014021118PT40432714");
-		newCompanyNamePlatformIdsMap.put("华安财产保险股份有限公司","2015122817PT60791069");
-		newCompanyNamePlatformIdsMap.put("前海人寿保险股份有限公司","2015112311PT64229280");
-		newCompanyNamePlatformIdsMap.put("阳光人寿保险股份有限公司北京分公司", "2012081317PT83847987,2012081317PT83866399,2014103113PT59648372");
-		newCompanyNamePlatformIdsMap.put("中国平安财产保险股份有限公司","2014041015PT53986694,2014072311PT01146728");
-
+		newCompanyNamePlatformIdsMap
+				.put("渤海人寿保险股份有限公司", "2015092414PT68067908,2015092414PT68096962,2015092414PT68119146");
+		newCompanyNamePlatformIdsMap
+				.put("恒大人寿保险有限公司", "2016010416PT06616973,2016010416PT06641264,2016010416PT06661421");
+		newCompanyNamePlatformIdsMap.put("江苏乐希科技有限公司", "2010041917PT81799091");
+		newCompanyNamePlatformIdsMap.put("清控紫荆（北京）教育科技股份有限公司", "2015110414PT51495612");
+		newCompanyNamePlatformIdsMap.put("网易博乐科技（舟山）有限公司", "2015091818PT33523535");
+		newCompanyNamePlatformIdsMap.put("网易乐得科技有限公司北京分公司",
+				"2010122411PT99922794,2011012011PT44375874,2011012117PT47052782,2013112720PT96388849,2014030514PT18590322,2014062711PT19366732,2014090520PT79653458,2015070316PT42257561,2015070615PT54816184,2015073119PT68254907,2015120516PT32274974,2015120516PT32312626");
+		newCompanyNamePlatformIdsMap.put("优佳电子商务有限公司", "2014101711PT74048466,2014101715PT77692433");
+		newCompanyNamePlatformIdsMap.put("友聚惠（北京）科技有限公司", "2013121615PT01742148");
+		newCompanyNamePlatformIdsMap.put("珠江人寿保险股份有限公司", "2016022510PT80627400");
 
 		try
 		{
-			for (int i = 1; i <= totalRowNum; i++)
+			for (int i = 0; i < totalRowNum; i++)
 			{
 				certDetail = excelUtil.getRowData(0, i + 1);
 
@@ -65,11 +73,13 @@ public class AssemblyCertsAction
 				String validDate = StringUtils.EMPTY;
 				String certImgFrontUrl = StringUtils.EMPTY;
 				String certImgBackUrl = StringUtils.EMPTY;
+				String companyId = StringUtils.EMPTY;
 				if (certDetail.length >= 4)
 				{
 					validDate = StringUtils.trimToEmpty(certDetail[4]);
 					certImgFrontUrl = StringUtils.trimToEmpty(certDetail[5]);
 					certImgBackUrl = StringUtils.trimToEmpty(certDetail[6]);
+					companyId = StringUtils.trimToEmpty(certDetail[7]);
 				}
 
 				PlatformCert platformCert = new PlatformCert();
@@ -84,6 +94,8 @@ public class AssemblyCertsAction
 				}
 				platformCert.setCertImgFrontUrl(certImgFrontUrl);
 				platformCert.setCertImgBackUrl(certImgBackUrl);
+				platformCert.setCompanyId(companyId);
+				platformCerts.add(platformCert);
 
 				platformMsgMap.put(companyName, platformCert);
 			}
@@ -102,20 +114,14 @@ public class AssemblyCertsAction
 		System.out.println("===>totalRowNum:" + totalRowNum);
 		System.out.println("===>totalRowNumIncludeBlank:" + totalLogicRowNum);
 
-
-		System.out.println("platformMsgMap.entries()===>" + JSONObject.toJSONString(platformMsgMap.entries()));
-
+		System.out.println("certListStr BATCH_UPDATE_CRTS_INFO : " + JSONObject.toJSONString(platformCerts));
 		String companyNameCertsMapStr = JSONObject.toJSONString(companyNameCertsMap);
-		System.err.println("放在diamond上的数据：companyNameCertsMapStr===>" + companyNameCertsMapStr);
+		System.err.println(
+				"放在diamond上的数据 NEW_COMPANY_NAME_AND_CERTS_MAP_STR：companyNameCertsMapStr===>" + companyNameCertsMapStr);
 
 		String newCompanyNamePlatformIdsMapStr = JSONObject.toJSONString(newCompanyNamePlatformIdsMap);
-		System.err.println("放在diamond上的数据，需要新增公司的商户：newCompanyNamePlatformIdsMapStr===>" + newCompanyNamePlatformIdsMapStr);
-
-		Map companyNameCertsMapDb = JSONObject.parseObject(companyNameCertsMapStr, Map.class);
-
-		List<PlatformCert> platformCerts = JSONObject
-				.parseArray((String) companyNameCertsMapDb.get("广州博冠信息科技有限公司"), PlatformCert.class);
-
-		System.out.println("广州博冠信息科技有限公司===>" + JSONObject.toJSONString(platformCerts));
+		System.err.println(
+				"放在diamond上的数据，需要新增公司的商户 NEW_COMPANY_NAME_PLATFORM_IDS_MAP_STR：newCompanyNamePlatformIdsMapStr===>"
+						+ newCompanyNamePlatformIdsMapStr);
 	}
 }

@@ -69,7 +69,7 @@ public class AssemblyInterfaceAction
 
 		String interfaceDTOListStr = JSONObject.toJSONString(interfaceDTOList);
 
-		System.err.println("===>interfaceDTOListStr：" + interfaceDTOListStr);
+		System.err.println("===> ADD_INTERFACE_KEY interfaceDTOListStr：" + interfaceDTOListStr);
 
 		List<InterfaceDTO> interfaceDTOList1 = JSONObject.parseArray(interfaceDTOListStr, InterfaceDTO.class);
 

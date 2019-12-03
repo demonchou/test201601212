@@ -73,7 +73,7 @@ public class AssemblyProductPowerAction
 		System.out.println("===>totalRowNumIncludeBlank:" + totalLogicRowNum);
 
 		String productPowerListMapStr = JSONObject.toJSONString(productPowerListMap);
-		System.err.println("===>productPowerListMapStr：" + productPowerListMapStr);
+		System.err.println("===> PRODUCTS_POWER_KEY productPowerListMapStr：" + productPowerListMapStr);
 
 		Map<String, List<String>> productPowerMap = JSONObject
 				.parseObject(productPowerListMapStr, new TypeReference<Map<String, List<String>>>()
