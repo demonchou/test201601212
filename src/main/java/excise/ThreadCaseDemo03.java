@@ -2,9 +2,18 @@ package excise;
 
 class Info
 { // 定义信息类
-	private String name = "name";// 定义name属性，为了与下面set的name属性区别开
-	private String content = "content";// 定义content属性，为了与下面set的content属性区别开
-	private boolean flag = true; // 设置标志位,初始时先生产
+	/**
+	 * // 定义name属性，为了与下面set的name属性区别开
+	 */
+	private String name = "name";
+	/**
+	 * // 定义content属性，为了与下面set的content属性区别开
+	 */
+	private String content = "content";
+	/**
+	 * // 设置标志位,初始时先生产
+	 */
+	private boolean flag = true;
 	
 	public synchronized void set(String name, String content)
 	{
@@ -18,7 +27,8 @@ class Info
 				e.printStackTrace();
 			}
 		}
-		this.setName(name); // 设置名称
+		// 设置名称
+		this.setName(name);
 		try
 		{
 			Thread.sleep(300);
@@ -26,8 +36,10 @@ class Info
 		{
 			e.printStackTrace();
 		}
-		this.setContent(content); // 设置内容
-		flag = false; // 改变标志位，表示可以取走
+		// 设置内容
+		this.setContent(content);
+		// 改变标志位，表示可以取走
+		flag = false;
 		super.notify();
 	}
 	
@@ -51,7 +63,8 @@ class Info
 			e.printStackTrace();
 		}
 		System.out.println(this.getName() + " --> " + this.getContent());
-		flag = true; // 改变标志位，表示可以生产
+		// 改变标志位，表示可以生产
+		flag = true;
 		super.notify();
 	}
 	
@@ -77,7 +90,8 @@ class Info
 }
 
 class Producer implements Runnable
-{ // 通过Runnable实现多线程
+{
+	// 通过Runnable实现多线程
 	private Info info = null; // 保存Info引用
 
 	public Producer(Info info)
@@ -87,16 +101,19 @@ class Producer implements Runnable
 
 	public void run()
 	{
-		boolean flag = true; // 定义标记位
+		// 定义标记位
+		boolean flag = true;
 		for (int i = 0; i < 10; i++)
 		{
 			if (flag)
 			{
-				this.info.set("姓名--1", "内容--1"); // 设置名称
+				// 设置名称
+				this.info.set("姓名--1", "内容--1");
 				flag = false;
 			} else
 			{
-				this.info.set("姓名--2", "内容--2"); // 设置名称
+				// 设置名称
+				this.info.set("姓名--2", "内容--2");
 				flag = true;
 			}
 		}

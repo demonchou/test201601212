@@ -7,14 +7,16 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.alibaba.fastjson.JSONObject;
 import com.demonchou.common.utils.ExcelUtil;
+import com.demonchou.module.platformcert.domain.PlatformCompany;
 
 /**
  *
  * @author hzzhouhongfei
  * @version $$ AssemblyBlackListAction, 2019-07-01 00:56 hzzhouhongfei $$
  */
-public class AssemblyBlackListAction
+public class AssemblyCompanyListAction
 {
 	public static void main(String[] args)
 	{
@@ -22,7 +24,7 @@ public class AssemblyBlackListAction
 		try
 		{
 //			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/线下批量数据处理 (190531).xlsx"));
-			excelUtil = new ExcelUtil(new File("/Users/sars/doc4project/web/合规需求/人行监管数据上送/备付金/2018银行明细汇总/存管+工商银行杭州分行+1202021129900119080+网易宝+20180101-1231.xlsx"));
+			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/ICP号.xlsx"));
 //			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/一键开户模板（new）.xlsx"));
 //			excelUtil = new ExcelUtil(new File("/Users/sars/tempFiles/考拉种草商家开户0628.xlsx"));
 		}
@@ -34,20 +36,20 @@ public class AssemblyBlackListAction
 		int totalRowNum = excelUtil.getRowNumExcludeBlankRow(0) - 1;
 		String[] blackListDetail = null;
 
-		Map<String, List<String>> productPowerListMap = new HashMap<>(16);
+		Map<String, PlatformCompany> nameAndCompanyMap = new HashMap<>(16);
 
-		StringBuffer sb = new StringBuffer();
 		try
 		{
 			for (int i = 1; i <= totalRowNum; i++)
 			{
 				blackListDetail = excelUtil.getRowData(0, i);
 
-				String functionName = StringUtils.trimToEmpty(blackListDetail[0]);
-				String version = StringUtils.trimToEmpty(blackListDetail[1]);
-				String platformIds = StringUtils.trimToEmpty(blackListDetail[2]);
+				PlatformCompany platformCompany = new PlatformCompany();
 
-				sb.append(functionName).append(version).append(";").append(platformIds).append("|");
+				platformCompany.setCompanyName(StringUtils.trimToEmpty(blackListDetail[0]));
+				platformCompany.setBusinessUrl(StringUtils.trimToEmpty(blackListDetail[1]));
+				platformCompany.setIcpNo(StringUtils.trimToEmpty(blackListDetail[2]));
+				nameAndCompanyMap.put(platformCompany.getCompanyName(), platformCompany);
 			}
 		}
 		catch (Exception e)
@@ -56,8 +58,8 @@ public class AssemblyBlackListAction
 		}
 
 		System.out.println("===>totalRowNum:" + totalRowNum);
-		System.out.println("===>totalRowNumIncludeBlank:" + totalLogicRowNum);
+		System.out.println("===>totalLogicRowNum:" + totalLogicRowNum);
 
-		System.err.println("===>blackListStr：" + sb.toString());
+		System.err.println("===> COMPANY_NAME_AND_COMPANY_INFO_MAP：" + JSONObject.toJSONString(nameAndCompanyMap));
 	}
 }
