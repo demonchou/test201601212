@@ -15,8 +15,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
-import sun.security.provider.MD5;
-
 /**
  * sm4加密算法工具类
  * @explain sm4加密、解密与加密结果验证
