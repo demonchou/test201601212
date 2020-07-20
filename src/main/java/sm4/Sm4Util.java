@@ -1,5 +1,7 @@
 package sm4;
 
+import static com.demonchou.common.utils.commonutils.convertToMd5;
+
 import java.security.Key;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -12,6 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
+
+import sun.security.provider.MD5;
 
 /**
  * sm4加密算法工具类
@@ -156,19 +160,19 @@ public class Sm4Util
 	/**
 	 * sm4解密
 	 * @explain 解密模式：采用ECB
-	 * @param hexKey
+	 * @param key
 	 *            16进制密钥
 	 * @param cipherText
 	 *            16进制的加密字符串（忽略大小写）
 	 * @return 解密后的字符串
 	 * @throws Exception
 	 */
-	public static String decryptEcb(String hexKey, String cipherText) throws Exception
+	public static String decryptEcb(String key, String cipherText) throws Exception
 	{
 		// 用于接收解密后的字符串
 		String decryptStr = "";
 		// hexString-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(hexKey);
+		byte[] keyData = ByteUtils.fromHexString(getHexKey(key));
 		// hexString-->byte[]
 		byte[] cipherData = ByteUtils.fromHexString(cipherText);
 		// 解密
@@ -195,7 +199,7 @@ public class Sm4Util
 	/**
 	 * 校验加密前后的字符串是否为同一数据
 	 * @explain
-	 * @param hexKey
+	 * @param key
 	 *            16进制密钥（忽略大小写）
 	 * @param cipherText
 	 *            16进制加密后的字符串
@@ -204,12 +208,12 @@ public class Sm4Util
 	 * @return 是否为同一数据
 	 * @throws Exception
 	 */
-	public static boolean verifyEcb(String hexKey, String cipherText, String paramStr) throws Exception
+	public static boolean verifyEcb(String key, String cipherText, String paramStr) throws Exception
 	{
 		// 用于接收校验结果
 		boolean flag = false;
 		// hexString-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(hexKey);
+		byte[] keyData = ByteUtils.fromHexString(getHexKey(key));
 		// 将16进制字符串转换成数组
 		byte[] cipherData = ByteUtils.fromHexString(cipherText);
 		// 解密
@@ -219,5 +223,11 @@ public class Sm4Util
 		// 判断2个数组是否一致
 		flag = Arrays.equals(decryptData, srcData);
 		return flag;
+	}
+
+	private static String getHexKey(String seed)
+	{
+		String secureKey = "p2zJ0r:~Vlmw3V:SyJ^Y1DmuFT4gQAwlF7)aLOYIIG4H>,IF;Zklc%@|&Z'$[LxM}*Xn(]11&I.JY'<bPOy2z";
+		return convertToMd5(secureKey + seed).toLowerCase();
 	}
 }

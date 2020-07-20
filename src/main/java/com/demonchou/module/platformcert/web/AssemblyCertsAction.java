@@ -48,17 +48,9 @@ public class AssemblyCertsAction
 		Map<String, String> newCompanyNamePlatformIdsMap = new HashMap<>(16);
 
 		newCompanyNamePlatformIdsMap
-				.put("渤海人寿保险股份有限公司", "2015092414PT68067908,2015092414PT68096962,2015092414PT68119146");
+				.put("中国人民人寿保险股份有限公司北京市分公司", "2013092320PT58079264,2013102910PT04223297,2014091120PT83927829");
 		newCompanyNamePlatformIdsMap
-				.put("恒大人寿保险有限公司", "2016010416PT06616973,2016010416PT06641264,2016010416PT06661421");
-		newCompanyNamePlatformIdsMap.put("江苏乐希科技有限公司", "2010041917PT81799091");
-		newCompanyNamePlatformIdsMap.put("清控紫荆（北京）教育科技股份有限公司", "2015110414PT51495612");
-		newCompanyNamePlatformIdsMap.put("网易博乐科技（舟山）有限公司", "2015091818PT33523535");
-		newCompanyNamePlatformIdsMap.put("网易乐得科技有限公司北京分公司",
-				"2010122411PT99922794,2011012011PT44375874,2011012117PT47052782,2013112720PT96388849,2014030514PT18590322,2014062711PT19366732,2014090520PT79653458,2015070316PT42257561,2015070615PT54816184,2015073119PT68254907,2015120516PT32274974,2015120516PT32312626");
-		newCompanyNamePlatformIdsMap.put("优佳电子商务有限公司", "2014101711PT74048466,2014101715PT77692433");
-		newCompanyNamePlatformIdsMap.put("友聚惠（北京）科技有限公司", "2013121615PT01742148");
-		newCompanyNamePlatformIdsMap.put("珠江人寿保险股份有限公司", "2016022510PT80627400");
+				.put("光大永明人寿保险有限公司", "2013030517PT85033886");
 
 		try
 		{
@@ -71,30 +63,47 @@ public class AssemblyCertsAction
 				String certNo = StringUtils.trimToEmpty(certDetail[2]);
 				String certName = StringUtils.trimToEmpty(certDetail[3]);
 				String validDate = StringUtils.EMPTY;
-				String certImgFrontUrl = StringUtils.EMPTY;
-				String certImgBackUrl = StringUtils.EMPTY;
-				String companyId = StringUtils.EMPTY;
+				String expireDate = StringUtils.EMPTY;
+				String certImgFrontUrl = null;
+				String certImgBackUrl = null;
+				String companyId = null;
+				String certId = null;
+				String certCategory = null;
+				String status = null;
+
 				if (certDetail.length >= 4)
 				{
 					validDate = StringUtils.trimToEmpty(certDetail[4]);
-					certImgFrontUrl = StringUtils.trimToEmpty(certDetail[5]);
-					certImgBackUrl = StringUtils.trimToEmpty(certDetail[6]);
-					companyId = StringUtils.trimToEmpty(certDetail[7]);
+					expireDate = StringUtils.trimToEmpty(certDetail[5]);
+					certImgFrontUrl = StringUtils.trimToEmpty(certDetail[6]);
+					certImgBackUrl = StringUtils.trimToEmpty(certDetail[7]);
+					companyId = StringUtils.trimToEmpty(certDetail[8]);
+					certId = StringUtils.trimToEmpty(certDetail[9]);
+					certCategory = StringUtils.trimToEmpty(certDetail[10]);
+					status = StringUtils.trimToEmpty(certDetail[11]);
 				}
 
 				PlatformCert platformCert = new PlatformCert();
 				platformCert.setCertType(certType);
 				platformCert.setCertNo(certNo);
 				platformCert.setCertName(certName);
-				platformCert.setExpireDate(DateUtil.formatToTimestamp(validDate, DateUtil.FMT_DATE_YYYYMMDD));
+				platformCert.setValidDate(DateUtil.formatToTimestamp(validDate, DateUtil.FMT_DATE_YYYYMMDD));
 				platformCert.setLongTerm("N");
-				if (StringUtils.equals("长期", validDate))
+				if (StringUtils.equals("长期", expireDate))
 				{
 					platformCert.setLongTerm("Y");
+				}
+				else
+				{
+					platformCert.setExpireDate(DateUtil.formatToTimestamp(expireDate, DateUtil.FMT_DATE_YYYYMMDD));
+
 				}
 				platformCert.setCertImgFrontUrl(certImgFrontUrl);
 				platformCert.setCertImgBackUrl(certImgBackUrl);
 				platformCert.setCompanyId(companyId);
+				platformCert.setCertId(certId);
+				platformCert.setCertCategory(certCategory);
+				platformCert.setStatus(status);
 				platformCerts.add(platformCert);
 
 				platformMsgMap.put(companyName, platformCert);

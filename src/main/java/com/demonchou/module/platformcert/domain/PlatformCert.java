@@ -14,6 +14,7 @@ public class PlatformCert
 {
 	private String certId;
 	private String certType;
+	private String certCategory;
 	private String certNo;
 	private String certName;
 	private Timestamp validDate;
