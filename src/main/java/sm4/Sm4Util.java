@@ -170,7 +170,7 @@ public class Sm4Util
 		// 用于接收解密后的字符串
 		String decryptStr = "";
 		// hexString-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(getHexKey(key));
+		byte[] keyData = ByteUtils.fromHexString(key);
 		// hexString-->byte[]
 		byte[] cipherData = ByteUtils.fromHexString(cipherText);
 		// 解密
@@ -211,7 +211,7 @@ public class Sm4Util
 		// 用于接收校验结果
 		boolean flag = false;
 		// hexString-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(getHexKey(key));
+		byte[] keyData = ByteUtils.fromHexString(key);
 		// 将16进制字符串转换成数组
 		byte[] cipherData = ByteUtils.fromHexString(cipherText);
 		// 解密

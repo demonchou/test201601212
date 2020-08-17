@@ -21,7 +21,7 @@ public class AssemblyFeeProductMapAction
 		ExcelUtil excelUtil = null;
 		try
 		{
-			excelUtil = new ExcelUtil(new File("/Users/sars/Desktop/temp/线下批量数据处理 (190531).xlsx"));
+			excelUtil = new ExcelUtil(new File("/Users/sars/doc4project/web/合规需求/合规提供的资料/暂停、注销状态的时间列表2.xlsx"));
 		}
 		catch (Exception e)
 		{
