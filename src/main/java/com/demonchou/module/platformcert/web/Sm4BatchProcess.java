@@ -57,7 +57,6 @@ public class Sm4BatchProcess
 			catch (Exception e)
 			{
 				System.out.println("解密失败");
-
 			}
 		}
 
