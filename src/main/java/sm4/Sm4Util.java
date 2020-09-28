@@ -2,18 +2,27 @@ package sm4;
 
 import static com.demonchou.common.utils.commonutils.convertToMd5;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.security.Security;
 import java.util.Arrays;
 
 import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * sm4加密算法工具类
@@ -25,12 +34,16 @@ import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
  * @since
  * @email marydon20170307@163.com
  */
+@Slf4j
 public class Sm4Util
 {
 
 	static
 	{
-		Security.addProvider(new BouncyCastleProvider());
+		if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null)
+		{
+			Security.addProvider(new BouncyCastleProvider());
+		}
 	}
 
 	private static final String ENCODING = "UTF-8";
@@ -58,11 +71,10 @@ public class Sm4Util
 			System.err.println(cipher);
 			System.err.println("base64 cipher : " + Base64.encodeBase64String(cipher.getBytes()));
 
-
 			// true
-			System.out.println(Sm4Util.verifyEcb(key, cipher, json));
-			json = Sm4Util.decryptEcb(key, cipher);
-			System.out.println(json);
+			//			System.out.println(Sm4Util.verifyEcb(key, cipher, json));
+			String json2 = Sm4Util.decryptEcb(key, cipher);
+			System.out.println(json2);
 
 			System.out.println(ByteUtils.toHexString(generateKey()));
 
@@ -131,7 +143,7 @@ public class Sm4Util
 	{
 		String cipherText = "";
 		// 16进制字符串-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(hexKey);
+		byte[] keyData = ByteUtils.fromHexString(getHexKey(hexKey));
 		// String-->byte[]
 		byte[] srcData = paramStr.getBytes(ENCODING);
 		// 加密后的数组
@@ -170,7 +182,7 @@ public class Sm4Util
 		// 用于接收解密后的字符串
 		String decryptStr = "";
 		// hexString-->byte[]
-		byte[] keyData = ByteUtils.fromHexString(key);
+		byte[] keyData = ByteUtils.fromHexString(getHexKey(key));
 		// hexString-->byte[]
 		byte[] cipherData = ByteUtils.fromHexString(cipherText);
 		// 解密
@@ -223,9 +235,115 @@ public class Sm4Util
 		return flag;
 	}
 
+	/**
+	 * 加密文件
+	 * @param sourceFile
+	 * @param encryptFile
+	 * @param password
+	 * @return
+	 */
+	public static File sm4FileEncryptEcb(File sourceFile, File encryptFile, String password)
+	{
+		try (InputStream inputStream = new FileInputStream(sourceFile);
+			 OutputStream outputStream = new FileOutputStream(encryptFile);)
+		{
+			// 获取加密方案
+			Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_ECB_PADDING, BouncyCastleProvider.PROVIDER_NAME);
+			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(password), ALGORITHM_NAME);
+			cipher.init(Cipher.ENCRYPT_MODE, sm4Key);
+
+			// 以加密流写入文件
+			CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher);
+			byte[] cache = new byte[1024];
+			int nRead = 0;
+			while ((nRead = cipherInputStream.read(cache)) != -1)
+			{
+				outputStream.write(cache, 0, nRead);
+				outputStream.flush();
+			}
+			cipherInputStream.close();
+		}
+		catch (Exception e)
+		{
+			log.error("【E2】使用SM4对文件加密失败，原因：{}", e.getMessage(), e);
+		}
+		return encryptFile;
+	}
+
+	/**
+	 * 加密文件
+	 * @param sourceFile
+	 * @param encryptFile
+	 * @param password
+	 * @return
+	 */
+	public static File sm4FileDecryptEcb(File sourceFile, File decryptFile, String password)
+	{
+		try (InputStream inputStream = new FileInputStream(sourceFile);
+			 OutputStream outputStream = new FileOutputStream(decryptFile);)
+		{
+			// 获取解密方案
+			Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_ECB_PADDING, BouncyCastleProvider.PROVIDER_NAME);
+			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(password), ALGORITHM_NAME);
+			cipher.init(Cipher.DECRYPT_MODE, sm4Key);
+
+			// 以解密流写入文件
+			CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, cipher);
+			byte[] buffer = new byte[1024];
+			int r;
+			while ((r = inputStream.read(buffer)) >= 0)
+			{
+				cipherOutputStream.write(buffer, 0, r);
+			}
+			cipherOutputStream.close();
+		}
+		catch (Exception e)
+		{
+			log.error("【E2】使用SM4对文件解密失败，原因：{}", e.getMessage(), e);
+		}
+		return decryptFile;
+	}
+
+	/**
+	 * SM4加密文件
+	 *
+	 * @param sourceFile  原始文件
+	 * @param encryptFile 加密后的文件
+	 * @param password    十六进制密钥
+	 */
+	public static void sm4FileEncryptEcb2(File sourceFile, File encryptFile, String password)
+	{
+		try (InputStream inputStream = new FileInputStream(sourceFile);
+			 OutputStream outputStream = new FileOutputStream(encryptFile);)
+		{
+			byte[] byteKey = ByteUtils.fromHexString(password);
+			byte[] bytes = new byte[1048576];
+			int bytesRead;
+			while ((bytesRead = inputStream.read(bytes)) != -1)
+			{
+				byte[] encryptedBytes;
+				if (bytesRead == bytes.length)
+				{
+					encryptedBytes = encrypt_Ecb_Padding(byteKey, bytes);
+				}
+				else
+				{
+					byte[] tempBytes = new byte[bytesRead];
+					System.arraycopy(bytes, 0, tempBytes, 0, bytesRead);
+					encryptedBytes = encrypt_Ecb_Padding(byteKey, tempBytes);
+				}
+				outputStream.write(encryptedBytes, 0, encryptedBytes.length);
+			}
+		}
+		catch (Exception e)
+		{
+			log.error("【E2】使用SM4对文件加密失败，原因：{}", e.getMessage(), e);
+		}
+	}
+
 	private static String getHexKey(String seed)
 	{
-		String secureKey = "p2zJ0r:~Vlmw3V:SyJ^Y1DmuFT4gQAwlF7)aLOYIIG4H>,IF;Zklc%@|&Z'$[LxM}*Xn(]11&I.JY'<bPOy2z";
+		String secureKey = "p2zJ0r:~Vlmw3V:SyJ^Y1DmuFT4gQAwlF7)aLOYIIG4H>,IF;Zklc%5uJGo0Z@JVe1t5IHx5fQd7g5|&Z'$[LxM}*Xn(]11&I.JY'<bPOy2z";
 		return convertToMd5(secureKey + seed).toLowerCase();
 	}
 }

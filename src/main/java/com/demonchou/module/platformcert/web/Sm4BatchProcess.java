@@ -20,7 +20,7 @@ public class Sm4BatchProcess
 		ExcelUtil excelUtil = null;
 		try
 		{
-			excelUtil = new ExcelUtil(new File("/Users/sars/tempFiles/全量商户.xlsx"));
+			excelUtil = new ExcelUtil(new File("/Users/sars/tempFiles/解密数据.xlsx"));
 		}
 		catch (Exception e)
 		{
@@ -34,13 +34,13 @@ public class Sm4BatchProcess
 			try
 			{
 				encryptDetail = excelUtil.getRowData(0, i + 1);
-				String seed = encryptDetail[14];
+				String seed = encryptDetail[0];
 				if (StringUtils.isBlank(seed))
 				{
 					System.out.println("公司ID为空");
 					continue;
 				}
-				String content = encryptDetail[23];
+				String content = encryptDetail[1];
 				if (StringUtils.isBlank(content))
 				{
 					System.out.println("密文信息为空");
@@ -56,7 +56,7 @@ public class Sm4BatchProcess
 			}
 			catch (Exception e)
 			{
-				System.out.println("解密失败");
+				System.out.println("");
 			}
 		}
 
