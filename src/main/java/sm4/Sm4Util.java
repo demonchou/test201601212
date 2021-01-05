@@ -78,6 +78,13 @@ public class Sm4Util
 
 			System.out.println(ByteUtils.toHexString(generateKey()));
 
+			String sourceFileBasePath = "/Users/sars/doc4project/web/e签宝/电子签章服务";
+
+			String sourceFilePath = sourceFileBasePath + ".pdf";
+			String encFilePath = sourceFilePath + ".enc";
+			File sourceFile = new File(sourceFilePath);
+			sm4FileEncryptEcb2(sourceFile, new File(encFilePath), "123312312321");
+			sm4FileDecryptEcb2(new File(encFilePath), new File(sourceFileBasePath + "2.pdf"), "123312312321");
 		}
 		catch (Exception e)
 		{
@@ -249,7 +256,7 @@ public class Sm4Util
 		{
 			// 获取加密方案
 			Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_ECB_PADDING, BouncyCastleProvider.PROVIDER_NAME);
-			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(password), ALGORITHM_NAME);
+			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(getHexKey(password)), ALGORITHM_NAME);
 			cipher.init(Cipher.ENCRYPT_MODE, sm4Key);
 
 			// 以加密流写入文件
@@ -271,7 +278,7 @@ public class Sm4Util
 	}
 
 	/**
-	 * 加密文件
+	 * 解密密文件
 	 * @param sourceFile
 	 * @param encryptFile
 	 * @param password
@@ -284,7 +291,7 @@ public class Sm4Util
 		{
 			// 获取解密方案
 			Cipher cipher = Cipher.getInstance(ALGORITHM_NAME_ECB_PADDING, BouncyCastleProvider.PROVIDER_NAME);
-			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(password), ALGORITHM_NAME);
+			Key sm4Key = new SecretKeySpec(ByteUtils.fromHexString(getHexKey(password)), ALGORITHM_NAME);
 			cipher.init(Cipher.DECRYPT_MODE, sm4Key);
 
 			// 以解密流写入文件
@@ -316,7 +323,7 @@ public class Sm4Util
 		try (InputStream inputStream = new FileInputStream(sourceFile);
 			 OutputStream outputStream = new FileOutputStream(encryptFile);)
 		{
-			byte[] byteKey = ByteUtils.fromHexString(password);
+			byte[] byteKey = ByteUtils.fromHexString(getHexKey(password));
 			byte[] bytes = new byte[1048576];
 			int bytesRead;
 			while ((bytesRead = inputStream.read(bytes)) != -1)
@@ -341,9 +348,47 @@ public class Sm4Util
 		}
 	}
 
+	/**
+	 * SM4解密密文件
+	 *
+	 * @param sourceFile  原始文件
+	 * @param decryptFile 加密后的文件
+	 * @param password    密钥
+	 */
+	public static void sm4FileDecryptEcb2(File sourceFile, File decryptFile, String password)
+	{
+		try (InputStream inputStream = new FileInputStream(sourceFile);
+			 OutputStream outputStream = new FileOutputStream(decryptFile);)
+		{
+			byte[] byteKey = ByteUtils.fromHexString(getHexKey(password));
+			byte[] bytes = new byte[1048592];
+			int bytesRead;
+			while ((bytesRead = inputStream.read(bytes)) != -1)
+			{
+				byte[] decryptedBytes;
+				if (bytesRead == bytes.length)
+				{
+					decryptedBytes = decrypt_Ecb_Padding(byteKey, bytes);
+				}
+				else
+				{
+					byte[] tempBytes = new byte[bytesRead];
+					System.arraycopy(bytes, 0, tempBytes, 0, bytesRead);
+					decryptedBytes = decrypt_Ecb_Padding(byteKey, tempBytes);
+				}
+				outputStream.write(decryptedBytes, 0, decryptedBytes.length);
+			}
+		}
+		catch (Exception e)
+		{
+			System.out.println("使用SM4对文件解密失败" + e);
+			log.error("【E2】使用SM4对文件解密失败，原因：{}", e.getMessage(), e);
+		}
+	}
+
 	private static String getHexKey(String seed)
 	{
-		String secureKey = "p2zJ0r:~Vlmw3V:SyJ^Y1DmuFT4gQAwlF7)aLOYIIG4H>,IF;Zklc%5uJGo0Z@JVe1t5IHx5fQd7g5|&Z'$[LxM}*Xn(]11&I.JY'<bPOy2z";
+		String secureKey = "p2zJ0r:~Vlmw3V:SyJ^Y1DmuFT4gQAwlF7)aLOYIIG4H>|&Z'$[LxM}*Xn(]11&I.JY'<bPOy2z";
 		return convertToMd5(secureKey + seed).toLowerCase();
 	}
 }
