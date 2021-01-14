@@ -40,7 +40,7 @@
         <kafka-clients-version>0.9.0.1</kafka-clients-version>
         <guava.version>17.0</guava.version>
         <dozer.version>5.5.1</dozer.version>
-        <poi.version>3.14</poi.version>
+        <poi.version>4.1.2</poi.version>
         <easyexcel.version>1.1.2-beta5</easyexcel.version>
         <freemarker.version>2.3.20</freemarker.version>
         <retrofit.version>2.1.0</retrofit.version>
