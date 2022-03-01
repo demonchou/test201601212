@@ -1,84 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root xmlns="namespace_string">
-	<MsgHeader>
-		<SndDt>$msgHeader.sendDate</SndDt>
-		<MsgTp>$msgHeader.msgType</MsgTp>
-		<IssrId>$msgHeader.instId</IssrId>
-		<Drctn>$msgHeader.direction</Drctn>
-		<SignSN>$SignSN</SignSN>
-		<NcrptnSN>$NcrptnSN</NcrptnSN>
-		<DgtlEnvlp>$velocityFunction.getDgtlEnvlp($NcrptnSN)</DgtlEnvlp>
-	</MsgHeader>
-	<MsgBody>
-		<ApplInf>
-			<InstgId>$msgBody.applyInfo.instId</InstgId>
-			<ApplTp>$msgBody.applyInfo.applyType</ApplTp>
-			<TrxId>$msgBody.applyInfo.applyId</TrxId>
-			<TrxDtTm>$msgBody.applyInfo.applyTime</TrxDtTm>
-		</ApplInf>
-		<MrchntInf>
-			#if( "$!msgBody.merchantInfo.merchantId" != "")
-			<MrchntId>$msgBody.merchantInfo.merchantId</MrchntId>
-			#end
-			<MrchntLvl>$msgBody.merchantInfo.merchantLevel</MrchntLvl>
-			<MrchntNm>$msgBody.merchantInfo.merchantName</MrchntNm>
-			<MrchntShrtNm>$msgBody.merchantInfo.merchantShortName</MrchntShrtNm>
-			<MrchntEnNm>$msgBody.merchantInfo.merchantNameEn</MrchntEnNm>
-			<MrchntTp>$msgBody.merchantInfo.merchantType</MrchntTp>
-			<MrchntAttr>$msgBody.merchantInfo.merchantAttribute</MrchntAttr>
-			<MrchntCtgy>$msgBody.merchantInfo.merchantCategory</MrchntCtgy>
-			<MrchntAddr>$msgBody.merchantInfo.merchantAddress</MrchntAddr>
-			<MrchntIDTp>$msgBody.merchantInfo.merchantIDType</MrchntIDTp>
-			<MrchntIDNo>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantIdNo)</MrchntIDNo>
-			<VldDtBgn>$msgBody.merchantInfo.validDateBegin</VldDtBgn>
-			<VldDtEnd>$msgBody.merchantInfo.validDateEnd</VldDtEnd>
-			<LglRepNm>$velocityFunction.AESEncrypt($msgBody.merchantInfo.legalPersonName)</LglRepNm>
-			<LglRepIDTp>$msgBody.merchantInfo.legalPersonIdType</LglRepIDTp>
-			<LglRepIDNo>$velocityFunction.AESEncrypt($msgBody.merchantInfo.legalPersonIdNo)</LglRepIDNo>
-			<MrchntCtryNo>$msgBody.merchantInfo.merchantCountryNo</MrchntCtryNo>
-			<MrchntAreaNo>$msgBody.merchantInfo.merchantAreaNo</MrchntAreaNo>
-			#if( "$!msgBody.merchantInfo.merchantUrl" != "")
-			<MrchntUrl>$msgBody.merchantInfo.merchantUrl</MrchntUrl>
-			#end
-			#if( "$!msgBody.merchantInfo.merchantIcp" != "")
-			<MrchntIcp>$msgBody.merchantInfo.merchantIcp</MrchntIcp>
-			#end
-			#if( "$!msgBody.merchantInfo.merchantContactName" != "")
-			<MrchntCtctNm>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantContactName)</MrchntCtctNm>
-			#end
-			#if( "$!msgBody.merchantInfo.merchantContactPhoneNo" != "")
-			<MrchntCtctPhn>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantContactPhoneNo)</MrchntCtctPhn>
-			#end
-			<MrchntCtctEmail>$msgBody.merchantInfo.merchantContactEmail</MrchntCtctEmail>
-			<MrchntIntNo>$msgBody.merchantInfo.merchantInstNo</MrchntIntNo>
-			<SgnCtrctDt>$msgBody.merchantInfo.merchantCreateTime</SgnCtrctDt>
-			<ExpTp>00</ExpTp>
-		</MrchntInf>
-		<MrchntAcctList>
-			#foreach( $merchantBankAccount in $msgBody.merchantBankAccountList.merchantBankAccountInfos )
-				<MrchntAcctInf>
-					<BkAcctIssrId>$merchantBankAccount.bankAccountInstId</BkAcctIssrId>
-					<BkAcctTp>$merchantBankAccount.bankAccountType</BkAcctTp>
-					<BkAcctId>$velocityFunction.AESEncrypt($merchantBankAccount.bankAccountId)</BkAcctId>
-					<BkAcctNm>$velocityFunction.AESEncrypt($merchantBankAccount.bankAccountName)</BkAcctNm>
-				</MrchntAcctInf>
-			#end
-		</MrchntAcctList>
-		<MrchntAuthList>
-			#foreach( $merchantAuth in $msgBody.merchantAuthList.authList )
-				<TrxAuth>$merchantAuth</TrxAuth>
-			#end
-		</MrchntAuthList>
-		<MrchntImgInf>
-			<MrchntIdAtt>$msgBody.merchantCertImg.merchantIdAttach</MrchntIdAtt>
-			<LglRepIDAtt>$msgBody.merchantCertImg.legalPersonIdAttach</LglRepIDAtt>
-			<SpplMtrAtt>$msgBody.merchantCertImg.supplementAttach</SpplMtrAtt>
-		</MrchntImgInf>
-		#if( "$!msgBody.disableReasonCode" != "")
-			<RtrctdCd>$msgBody.disableReasonCode</RtrctdCd>
-			#end
-		#if( "$!msgBody.disableReasonDesc" != "")
-			<RtrctdDesc>$msgBody.disableReasonDesc</RtrctdDesc>
-		#end
-	</MsgBody>
+    <MsgHeader>
+        <SndDt>$msgHeader.sendDate</SndDt>
+        <MsgTp>$msgHeader.msgType</MsgTp>
+        <IssrId>$msgHeader.instId</IssrId>
+        <Drctn>$msgHeader.direction</Drctn>
+        <SignSN>$SignSN</SignSN>
+        <NcrptnSN>$NcrptnSN</NcrptnSN>
+        <DgtlEnvlp>$velocityFunction.getDgtlEnvlp($NcrptnSN)</DgtlEnvlp>
+    </MsgHeader>
+    <MsgBody>
+        <ApplInf>
+            <InstgId>$msgBody.applyInfo.instId</InstgId>
+            <ApplTp>$msgBody.applyInfo.applyType</ApplTp>
+            <TrxId>$msgBody.applyInfo.applyId</TrxId>
+            <TrxDtTm>$msgBody.applyInfo.applyTime</TrxDtTm>
+        </ApplInf>
+        <MrchntInf>
+            #if( "$!msgBody.merchantInfo.merchantId" != "")
+                <MrchntId>$msgBody.merchantInfo.merchantId</MrchntId>
+            #end
+            <MrchntLvl>$msgBody.merchantInfo.merchantLevel</MrchntLvl>
+            <MrchntNm>$msgBody.merchantInfo.merchantName</MrchntNm>
+            <MrchntShrtNm>$msgBody.merchantInfo.merchantShortName</MrchntShrtNm>
+            <MrchntEnNm>$msgBody.merchantInfo.merchantNameEn</MrchntEnNm>
+            <MrchntTp>$msgBody.merchantInfo.merchantType</MrchntTp>
+            <MrchntAttr>$msgBody.merchantInfo.merchantAttribute</MrchntAttr>
+            <MrchntCtgy>$msgBody.merchantInfo.merchantCategory</MrchntCtgy>
+            <MrchntAddr>$msgBody.merchantInfo.merchantAddress</MrchntAddr>
+            <MrchntIDTp>$msgBody.merchantInfo.merchantIDType</MrchntIDTp>
+            <MrchntIDNo>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantIdNo)</MrchntIDNo>
+            <VldDtBgn>$msgBody.merchantInfo.validDateBegin</VldDtBgn>
+            <VldDtEnd>$msgBody.merchantInfo.validDateEnd</VldDtEnd>
+            <LglRepNm>$velocityFunction.AESEncrypt($msgBody.merchantInfo.legalPersonName)</LglRepNm>
+            <LglRepIDTp>$msgBody.merchantInfo.legalPersonIdType</LglRepIDTp>
+            <LglRepIDNo>$velocityFunction.AESEncrypt($msgBody.merchantInfo.legalPersonIdNo)</LglRepIDNo>
+            <MrchntCtryNo>$msgBody.merchantInfo.merchantCountryNo</MrchntCtryNo>
+            <MrchntAreaNo>$msgBody.merchantInfo.merchantAreaNo</MrchntAreaNo>
+            #if( "$!msgBody.merchantInfo.merchantUrl" != "")
+                <MrchntUrl>$msgBody.merchantInfo.merchantUrl</MrchntUrl>
+            #end
+            #if( "$!msgBody.merchantInfo.merchantIcp" != "")
+                <MrchntIcp>$msgBody.merchantInfo.merchantIcp</MrchntIcp>
+            #end
+            #if( "$!msgBody.merchantInfo.merchantContactName" != "")
+                <MrchntCtctNm>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantContactName)</MrchntCtctNm>
+            #end
+            #if( "$!msgBody.merchantInfo.merchantContactPhoneNo" != "")
+                <MrchntCtctPhn>$velocityFunction.AESEncrypt($msgBody.merchantInfo.merchantContactPhoneNo)</MrchntCtctPhn>
+            #end
+            <MrchntCtctEmail>$msgBody.merchantInfo.merchantContactEmail</MrchntCtctEmail>
+            <MrchntIntNo>$msgBody.merchantInfo.merchantInstNo</MrchntIntNo>
+            <SgnCtrctDt>$msgBody.merchantInfo.merchantCreateTime</SgnCtrctDt>
+            <ExpTp>00</ExpTp>
+        </MrchntInf>
+        <MrchntAcctList>
+            #foreach( $merchantBankAccount in $msgBody.merchantBankAccountList.merchantBankAccountInfos )
+                <MrchntAcctInf>
+                    <BkAcctIssrId>$merchantBankAccount.bankAccountInstId</BkAcctIssrId>
+                    <BkAcctTp>$merchantBankAccount.bankAccountType</BkAcctTp>
+                    <BkAcctId>$velocityFunction.AESEncrypt($merchantBankAccount.bankAccountId)</BkAcctId>
+                    <BkAcctNm>$velocityFunction.AESEncrypt($merchantBankAccount.bankAccountName)</BkAcctNm>
+                </MrchntAcctInf>
+            #end
+        </MrchntAcctList>
+        <MrchntAuthList>
+            #foreach( $merchantAuth in $msgBody.merchantAuthList.authList )
+                <TrxAuth>$merchantAuth</TrxAuth>
+            #end
+        </MrchntAuthList>
+        <MrchntImgInf>
+            <MrchntIdAtt>$msgBody.merchantCertImg.merchantIdAttach</MrchntIdAtt>
+            <LglRepIDAtt>$msgBody.merchantCertImg.legalPersonIdAttach</LglRepIDAtt>
+            <SpplMtrAtt>$msgBody.merchantCertImg.supplementAttach</SpplMtrAtt>
+        </MrchntImgInf>
+        #if( "$!msgBody.disableReasonCode" != "")
+            <RtrctdCd>$msgBody.disableReasonCode</RtrctdCd>
+        #end
+        #if( "$!msgBody.disableReasonDesc" != "")
+            <RtrctdDesc>$msgBody.disableReasonDesc</RtrctdDesc>
+        #end
+    </MsgBody>
 </root>
