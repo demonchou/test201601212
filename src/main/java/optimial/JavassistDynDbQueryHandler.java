@@ -1,10 +1,8 @@
 package optimial;
 
-import javassist.util.proxy.MethodHandler;
-import optimial.*;
-import optimial.DBQuery;
-
 import java.lang.reflect.Method;
+
+import javassist.util.proxy.MethodHandler;
 
 public class JavassistDynDbQueryHandler implements MethodHandler
 {

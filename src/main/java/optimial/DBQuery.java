@@ -1,7 +1,5 @@
 package optimial;
 
-import optimial.IDBQuery;
-
 public class DBQuery implements IDBQuery
 {
     public DBQuery(){

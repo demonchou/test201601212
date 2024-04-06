@@ -1,13 +1,15 @@
 package optimial;
 
-import javassist.*;
+import java.lang.reflect.Proxy;
+
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtNewConstructor;
+import javassist.CtNewMethod;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 import net.sf.cglib.proxy.Enhancer;
-import optimial.*;
-import optimial.IDBQuery;
-
-import java.lang.reflect.Proxy;
 
 public class PerformanceMain
 {

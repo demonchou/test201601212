@@ -18,12 +18,14 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.springframework.stereotype.Component;
 
 /**
  * excel工具类
  * @author hzxietao
  * @version $$ ExcelUtil, 05/09/2017 hzxietao $$
  */
+@Component
 public class ExcelUtil
 {
 	private Workbook wb;

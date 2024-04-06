@@ -1,11 +1,9 @@
 package optimial;
 
+import java.lang.reflect.Method;
+
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
-import optimial.*;
-import optimial.DBQuery;
-
-import java.lang.reflect.Method;
 
 public class CglibDbQueryInterceptor implements MethodInterceptor
 {

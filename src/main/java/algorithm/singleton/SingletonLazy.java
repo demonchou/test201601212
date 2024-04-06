@@ -13,7 +13,8 @@ public class SingletonLazy
 	{
 		if (null == INSTANCE)
 		{
-			synchronized (SingletonLazy.class){
+			synchronized (SingletonLazy.class)
+			{
 				if (null == INSTANCE)
 				{
 					INSTANCE = new SingletonLazy();

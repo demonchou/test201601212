@@ -1,9 +1,6 @@
 package excise.thread;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 /**
  * 线程池测试
@@ -18,12 +15,10 @@ public class UserServiceWithThreadPool
 
 	public int count() throws Exception
 	{
-		Future<Integer> future1 = executorService.submit(new Callable<Integer>()
+		Future<Integer> future1 = executorService.submit(new InheritableContextCallable<Integer>()
 		{
-
 			@Override
-			public Integer call()
-			{
+			public Integer execute() throws Exception {
 				return count1();
 			}
 		});
@@ -32,14 +27,7 @@ public class UserServiceWithThreadPool
 
 	private int count1()
 	{
-		try
-		{
-			Thread.sleep(1000L);
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+		System.out.println("累加1");
 		return -1;
 	}
 
@@ -55,10 +43,12 @@ public class UserServiceWithThreadPool
 
 	public static void main(String[] args) throws Exception
 	{
-		ExecutorService executorService = Executors.newFixedThreadPool(5);
+//		ExecutorService executorService = Executors.newFixedThreadPool(5);
+		ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(3, 5, 50, TimeUnit.MILLISECONDS,
+				new ArrayBlockingQueue<>(80));
 		UserServiceWithThreadPool userService = new UserServiceWithThreadPool();
-		userService.setExecutorService(executorService);
-		for (int j = 0; j < 5; j++)
+		userService.setExecutorService(threadPoolExecutor);
+		for (int j = 0; j < 7; j++)
 		{
 			int k = userService.count();
 			if (k == 0)
@@ -74,7 +64,7 @@ public class UserServiceWithThreadPool
 
 		System.out.println(success + "：" + fail);
 
-		executorService.shutdown();
+		threadPoolExecutor.shutdown();
 
 	}
 }
